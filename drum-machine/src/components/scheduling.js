@@ -11,14 +11,15 @@ function setBPM(newBPM) {
 var Sample = function() {
   // Private properties
 
-  var buffer;
+  var soundBuffer = null;
 
   // Public stuff
 
   // Plays audio file
   this.play = function(time) {
+    stopped = false;
     var s = context.createBufferSource();
-    s.buffer = this.buffer;
+    s.buffer = soundBuffer;
     s.connect(context.destination);
 
     s.start(time);
@@ -31,8 +32,8 @@ var Sample = function() {
     req.responseType = "arraybuffer";
 
     req.onload = function() {
-      context.decodeAudioData(req.response, function(buffer) {
-        this.buffer = buffer;
+      context.decodeAudioData(req.response, function(abuffer) {
+        soundBuffer = abuffer;
       });
     };
 
@@ -45,6 +46,7 @@ var Sequence = function(subdivision, sample) {
   // Public shizz
 
   var seq;
+  var interval;
 
   // Private stuff
 
@@ -59,9 +61,10 @@ var Sequence = function(subdivision, sample) {
       }
 
       if (seq[i]) {
-        sample.play(currentTime + bpm / 60 * i * (4 / subdivision));
+        sample.play(currentTime + bpm / 60 * i * (2 / subdivision));
       }
     }
+    console.log("Played");
   };
 
   // Load sequence
@@ -71,25 +74,26 @@ var Sequence = function(subdivision, sample) {
 
   // Loops sequence until stop signal is sent
   this.loop = function() {
-    while (true) {
-      this.play();
-    }
+    // still working out loop time
+    let totalTime = bpm / 60 * subdivision * (2 / subdivision) * 1000;
+    this.play();
+    interval = window.setInterval(this.play, totalTime);
   };
 
   this.stop = function() {
     stopped = true;
+    window.clearInterval(interval);
   };
 };
 
-/*
+var Song = function(numTracks) {
+  var sequences = [];
 
-Sample use case
+  for (let i = 0; i < numTracks; i++) {
+    sequences.push([]);
+  }
 
-setBPM(120);
-var kick = new Sample();
-kick.load("./kick.wav");
-var kickSequence = new Sequence(16, kick);
-kickSequence.load([true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]);
-kickSequence.loop();
-
-*/
+  this.addSequence = function(channel, sequence) {
+    sequences[channel].push(sequence);
+  };
+};

@@ -10,7 +10,7 @@ class Sequencer extends React.Component {
     return (
       <Container>
         <Row>
-          <Col xs="1">Name</Col>
+          <Col xs="1" />
           <Col xs="10">
             {this.state.beatMap.map(beat => {
               return <Button />;
