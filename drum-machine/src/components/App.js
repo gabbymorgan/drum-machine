@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 
 import SampleContainer from "./Samples/SampleContainer";
-import SequencerContainer from "./Sequencer/SequencerContainer";
+import SequencerContainer from "./Sequencer/Sequencer";
 import Transport from ".//Transport/Transport";
 import "./App.css";
 

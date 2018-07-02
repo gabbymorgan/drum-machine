@@ -8,40 +8,21 @@ const RowSpacer = styled.div`
 `;
 
 class SampleContainer extends React.Component {
-  state = {
-    samples: []
-  };
   render() {
     return (
       <Container>
         <Row>
-          <Col>
-            <Sample />
-          </Col>
-          <Col>
-            <Sample />
-          </Col>
-          <Col>
-            <Sample />
-          </Col>
-          <Col>
-            <Sample />
-          </Col>
+          <Sample />
+          <Sample />
+          <Sample />
+          <Sample />
         </Row>
         <RowSpacer />
         <Row>
-          <Col>
-            <Sample />
-          </Col>
-          <Col>
-            <Sample />
-          </Col>
-          <Col>
-            <Sample />
-          </Col>
-          <Col>
-            <Sample />
-          </Col>
+          <Sample />
+          <Sample />
+          <Sample />
+          <Sample />
         </Row>
       </Container>
     );

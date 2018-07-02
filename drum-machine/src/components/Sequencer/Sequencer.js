@@ -1,20 +1,28 @@
 import React from "react";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
+import Sequence from "./Sequence";
+import Timeline from "./Timeline";
 
 class Sequencer extends React.Component {
-  state = {
-    snare: [...Array(32).keys()].fill(0),
-    kick: [...Array(32).keys()].fill(0)
-  };
-
-  clickHandler(event) {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: this.props.time
+    };
+  }
 
   render() {
     return (
       <Container>
-        <Row>
-          <Col xs="1">Name</Col>
-        </Row>
+        <Timeline time={this.state.time} />
+        <Sequence />
+        <Sequence />
+        <Sequence />
+        <Sequence />
+        <Sequence />
+        <Sequence />
+        <Sequence />
+        <Sequence />
       </Container>
     );
   }

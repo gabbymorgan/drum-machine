@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const Samp = styled.div`
-  ht:g100 200px;
-dth:i100: 200px;
+  width: 20%;
+  height: 100px;
   border: 1px solid black;
   background: #e0e0e0;
   border-radius: 5px;
+  margin: 0 auto;
 `;
 
 class Sample extends React.Component {
