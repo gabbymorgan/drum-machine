@@ -9,32 +9,53 @@ import Sequencer from "./Sequencer/Sequencer";
 
 const context = new AudioContext();
 let timer;
+let lastStop = 0;
+let totalRewind = 0;
 
 class App extends Component {
   state = {
     isPlaying: true,
     currentBeat: 0,
-    bpm: 120,
+    bpm: 60,
     sequenceLength: 32,
     tracks: 8,
+    isStopped: false,
   };
 
+  componentDidMount() {
+
+    context.suspend();
+
+  }
+
   start() {
+    context.resume();
     const { bpm, sequenceLength, nextNoteTime } = this.state;
     let { currentBeat } = this.state;
+
+    if (this.state.isStopped) {
+
+      totalRewind += currentBeat;
+
+    }
+
     timer = setInterval(() => {
+
       // this.setState({ currentBeat: this.state.currentBeat + 1 });
       this.setState({
         isPlaying: true,
-        currentBeat: Math.floor(context.currentTime * bpm/60) % sequenceLength,
+        currentBeat: (Math.floor(context.currentTime * bpm/60) % sequenceLength) - totalRewind,
+        isStopped: false
       });
     }, 50);
   }
 
   stop() {
+    context.suspend();
+    lastStop = context.currentTime;
     this.setState({
-      currentBeat: 0,
       isPlaying: false,
+      isStopped: true,
     });
     clearInterval(timer);
   }
@@ -44,6 +65,7 @@ class App extends Component {
       isPlaying: false,
     });
     clearInterval(timer);
+    context.suspend();
   }
 
   changeBPM = value => {
