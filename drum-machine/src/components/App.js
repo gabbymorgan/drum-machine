@@ -7,6 +7,8 @@ import Transport from ".//Transport/Transport";
 import "./App.css";
 import Sequencer from "./Sequencer/Sequencer";
 
+import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from './sounds'
+
 const context = new AudioContext();
 let timer;
 let lastStop = 0;
