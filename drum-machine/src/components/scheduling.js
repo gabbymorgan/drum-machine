@@ -11,14 +11,14 @@ function setBPM(newBPM) {
 var Sample = function() {
   // Private properties
 
-  var buffer;
+  var soundBuffer = null;
 
   // Public stuff
 
   // Plays audio file
   this.play = function(time) {
     var s = context.createBufferSource();
-    s.buffer = this.buffer;
+    s.buffer = soundBuffer;
     s.connect(context.destination);
 
     s.start(time);
@@ -31,8 +31,8 @@ var Sample = function() {
     req.responseType = "arraybuffer";
 
     req.onload = function() {
-      context.decodeAudioData(req.response, function(buffer) {
-        this.buffer = buffer;
+      context.decodeAudioData(req.response, function(abuffer) {
+        soundBuffer = abuffer;
       });
     };
 
@@ -42,11 +42,11 @@ var Sample = function() {
 
 // Sequence object
 var Sequence = function(subdivision, sample) {
-  // Public shizz
+  // Private shizz
 
   var seq;
 
-  // Private stuff
+  // Public stuff
 
   // Play sequence
   this.play = function() {
@@ -71,25 +71,10 @@ var Sequence = function(subdivision, sample) {
 
   // Loops sequence until stop signal is sent
   this.loop = function() {
-    while (true) {
-      this.play();
-    }
+    window.setInterval(this.play(), bpm / 60 * 4);
   };
 
   this.stop = function() {
     stopped = true;
   };
 };
-
-/*
-
-Sample use case
-
-setBPM(120);
-var kick = new Sample();
-kick.load("./kick.wav");
-var kickSequence = new Sequence(16, kick);
-kickSequence.load([true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]);
-kickSequence.loop();
-
-*/
