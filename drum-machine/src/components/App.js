@@ -92,7 +92,7 @@ class App extends Component {
   state = {
     isPlaying: false,
     currentBeat: 0,
-    bpm: 100,
+    bpm: 40,
     sequenceLength: 16,
     tracks: 8,
     showPads: true,
