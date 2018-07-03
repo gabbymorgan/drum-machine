@@ -193,7 +193,6 @@ class App extends Component {
   };
 
   keyPressHandler = (event) => {
-    event.preventDefault();
     const sounds = {
       kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
     }
