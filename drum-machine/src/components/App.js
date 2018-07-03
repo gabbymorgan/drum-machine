@@ -2,47 +2,38 @@ import React, { Component } from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 
 import SampleContainer from "./Samples/SampleContainer";
-import SequencerContainer from "./Sequencer/Sequencer";
 import Transport from ".//Transport/Transport";
-import "./App.css";
 import Sequencer from "./Sequencer/Sequencer";
+import "./App.css";
 
-import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from './sounds'
 
 const context = new AudioContext();
 let timer;
-let lastStop = 0;
 let totalRewind = 0;
 
 class App extends Component {
   state = {
     isPlaying: true,
     currentBeat: 0,
-    bpm: 60,
-    sequenceLength: 32,
+    bpm: 100,
+    sequenceLength: 16,
     tracks: 8,
     isStopped: false,
   };
 
   componentDidMount() {
-
     context.suspend();
-
   }
 
   start() {
     context.resume();
-    const { bpm, sequenceLength, nextNoteTime } = this.state;
+    const { bpm, sequenceLength } = this.state;
     let { currentBeat } = this.state;
-
     if (this.state.isStopped) {
-
       totalRewind += currentBeat;
-
     }
 
     timer = setInterval(() => {
-
       // this.setState({ currentBeat: this.state.currentBeat + 1 });
       this.setState({
         isPlaying: true,
@@ -54,7 +45,6 @@ class App extends Component {
 
   stop() {
     context.suspend();
-    lastStop = context.currentTime;
     this.setState({
       isPlaying: false,
       isStopped: true,

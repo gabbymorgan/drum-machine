@@ -1,4 +1,5 @@
 import React from "react";
+import { Row, Col } from 'reactstrap';
 import styled from "styled-components";
 
 const LedContainer = styled.div`
@@ -7,8 +8,8 @@ const LedContainer = styled.div`
 
 const Led = styled.div`
   height: 60px;
-  width: 5%;
-  margin: 0 auto;
+  width: ${props => (props.width)}%;
+  margin: .5%;
   border: 1px solid black;
   border-radius: 5px;
   background: ${props => (props.on ? "#4fc3f7" : "#e0e0e0")};
@@ -20,6 +21,12 @@ class Timeline extends React.Component {
     this.state = {
       noteOn: []
     };
+  }
+
+  componentDidUpdate() {
+    if (this.state.noteOn[this.props.currentBeat]) {
+      this.props.sound(this.props.context);
+    }
   }
 
   componentDidMount() {
@@ -40,11 +47,23 @@ class Timeline extends React.Component {
 
   render() {
     return (
-      <LedContainer>
-        {this.state.noteOn.map((note, index) => {
-          return <Led id={index} on={this.state.noteOn[index]} onClick={() => this.handleClick(index)} />
-        })}
-      </LedContainer>
+      <Row>
+        <Col>
+          {this.props.name}
+        </Col>
+        <Col xs='10'>
+          <LedContainer>
+            {this.state.noteOn.map((note, index) => {
+              return <Led 
+              id={index} 
+              on={this.state.noteOn[index]} 
+              width={100/this.props.sequenceLength}
+              onClick={() => this.handleClick(index)} 
+              />
+            })}
+          </LedContainer>
+        </Col>
+      </Row>
     );
   }
 }

@@ -2,6 +2,11 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import Sequence from "./Sequence";
 import Timeline from "./Timeline";
+import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from '../../sounds'
+
+const sounds = {
+  kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
+}
 
 class Sequencer extends React.Component {
   constructor(props) {
@@ -17,10 +22,13 @@ class Sequencer extends React.Component {
         <Timeline currentBeat={this.props.currentBeat} 
         sequenceLength={this.props.sequenceLength}
         />
-        {[...Array(this.props.tracks).keys()].map((value, index) => {
-          return <Sequence currentBeat={this.props.currentBeat}
+        {Object.keys(sounds).map((name, index) => {
+          return <Sequence
+          name={name}
+          sound={sounds[name]}
+          context={this.props.context}
+          currentBeat={this.props.currentBeat}
           sequenceLength={this.props.sequenceLength}
-          //needs to be passed sound function/file
           />
         })}
       </Container>

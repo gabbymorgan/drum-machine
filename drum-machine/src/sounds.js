@@ -31,7 +31,7 @@ function kick(context, destination) {
   osc.frequency.value = 70;
   osc.connect(gain);
 
-  gain.connect(destination);
+  gain.connect(context.destination);
   gain.gain.value = 0;
 
   osc.start(context.currentTime);

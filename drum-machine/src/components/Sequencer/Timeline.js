@@ -1,6 +1,7 @@
 
 
 import React from "react";
+import { Row, Col } from 'reactstrap';
 import styled from "styled-components";
 
 const LedContainer = styled.div`
@@ -9,11 +10,11 @@ const LedContainer = styled.div`
 
 const Led = styled.div`
   height: 20px;
-  width: 5%;
+  width: ${props => (props.width)}%;
   border: 1px solid black;
   border-radius: 5px;
   background: ${props => (props.active ? "#76ff03" : "#e0e0e0")};
-  margin: 0 auto;
+  margin: .5%;
 `;
 
 class Timeline extends React.Component {
@@ -22,11 +23,20 @@ class Timeline extends React.Component {
   }
   render() {
     return (
-      <LedContainer>
-        {[...Array(this.props.sequenceLength).keys()].map((value, index) => {
-          return <Led id={index} active={this.props.currentBeat === index} />
-        })}
-      </LedContainer>
+      <Row>
+        <Col>
+        </Col>
+        <Col xs='10'>
+          <LedContainer>
+            {[...Array(this.props.sequenceLength).keys()].map((value, index) => {
+              return <Led 
+              id={index} 
+              width={100/this.props.sequenceLength}
+              active={this.props.currentBeat === index} />
+            })}
+          </LedContainer>
+        </Col>
+      </Row>
     );
   }
 }
