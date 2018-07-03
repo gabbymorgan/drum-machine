@@ -84,15 +84,16 @@ class App extends Component {
         time={context.currentTime}
         beat={this.state.currentBeat}
         togglePads={this.togglePads}
+        changeSequenceLength={this.changeSequenceLength}
         />
         <SampleContainer 
-          context={context}
-          show={this.state.showPads} />
+        context={context}
+        show={this.state.showPads} />
         <Sequencer
-          context={context}
-          tracks={this.state.tracks}
-          currentBeat={this.state.currentBeat}
-          sequenceLength={this.state.sequenceLength}
+        context={context}
+        tracks={this.state.tracks}
+        currentBeat={this.state.currentBeat}
+        sequenceLength={this.state.sequenceLength}
         />
     </Container>
     );
