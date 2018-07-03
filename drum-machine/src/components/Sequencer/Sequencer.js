@@ -33,15 +33,18 @@ class Sequencer extends React.Component {
         <LedSpacer />
         {Object.keys(sounds).map((name, index) => {
           return (
-            <Sequence
-              key={index}
-              name={name}
-              playSound={sounds[name]}
-              context={this.props.context}
-              gain={this.props.gains[name]}
-              currentBeat={this.props.currentBeat}
-              sequenceLength={this.props.sequenceLength}
-            />
+            <div>
+              <Sequence
+                key={index}
+                name={name}
+                playSound={sounds[name]}
+                context={this.props.context}
+                gain={this.props.gains[name]}
+                currentBeat={this.props.currentBeat}
+                sequenceLength={this.props.sequenceLength}
+              />
+              <LedSpacer />
+            </div>
           );
         })}
       </Container>

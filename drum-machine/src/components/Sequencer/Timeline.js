@@ -10,7 +10,7 @@ const Led = styled.div`
   width: 5%;
   border: 1px solid black;
   border-radius: 5px;
-  background: ${props => (props.active ? '#76ff03' : '#e0e0e0')};
+  background: ${props => (props.active ? '#76ff03' : '#616161')};
   margin: 0 auto;
 `;
 
