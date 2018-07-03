@@ -64,7 +64,7 @@ class App extends Component {
         currentBeat: nextBeat,
       });
     }
-    }, context.currentTime + 50);
+  }, context.currentTime + 1);
   }
 
   pause() {
