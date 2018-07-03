@@ -14,7 +14,7 @@ class App extends Component {
   state = {
     isPlaying: false,
     currentBeat: 0,
-    bpm: 100,
+    bpm: 120,
     sequenceLength: 16,
     tracks: 8,
     showPads: true,
@@ -43,7 +43,7 @@ class App extends Component {
     const { bpm, sequenceLength } = this.state;
     timer = setInterval(() => {
       // this.setState({ currentBeat: this.state.currentBeat + 1 });
-      const nextBeat = (Math.floor(context.currentTime * bpm/60) % sequenceLength) - totalRewind;
+      let nextBeat = (Math.floor(context.currentTime * bpm/60) % sequenceLength) - totalRewind;
       if (nextBeat !== this.state.currentBeat) {
       this.setState({
         isPlaying: true,
@@ -63,8 +63,9 @@ class App extends Component {
 
   changeBPM = value => {
     this.setState({
-      bpm: value
+      bpm: value.target.value
     });
+    console.log("Changed bpm to " + value.target.value);
   };
 
   changeSequenceLength = value => {
@@ -86,7 +87,7 @@ class App extends Component {
         togglePads={this.togglePads}
         changeSequenceLength={this.changeSequenceLength}
         />
-        <SampleContainer 
+        <SampleContainer
         context={context}
         show={this.state.showPads} />
         <Sequencer
