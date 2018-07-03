@@ -215,11 +215,14 @@ class App extends Component {
           togglePads={this.togglePads}
           changeSequenceLength={this.changeSequenceLength}
         />
-        <SampleContainer
-          context={context}
-          gains={gains}
-          show={this.state.showPads}
-        />
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+          <SampleContainer
+            context={context}
+            gains={gains}
+            show={this.state.showPads}
+          />
+          {this.state.showPads ?  <Mixer mixerHandler={this.mixerHandler}/> : null}
+        </div>
         <Sequencer
           context={context}
           gains={gains}
@@ -227,7 +230,6 @@ class App extends Component {
           currentBeat={this.state.currentBeat}
           sequenceLength={this.state.sequenceLength}
         />
-        <Mixer mixerHandler={this.mixerHandler} />
       </Container>
     );
   }

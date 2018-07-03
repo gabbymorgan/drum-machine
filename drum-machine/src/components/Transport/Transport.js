@@ -68,6 +68,7 @@ const BPM = styled.input`
   padding: 4px;
   margin-left: 10px;
   font-weight: bold;
+  max-width: 70px;
 `;
 
 const PadsToggle = styled.div`
@@ -76,7 +77,7 @@ const PadsToggle = styled.div`
   border: 1px solid black;
   border-radius: 5px;
   padding: 4px 15px;
-  margin-left: 10px;
+  margin-left: 100px;
   font-weight: bold;
   &:hover {
     cursor: pointer;
@@ -100,8 +101,8 @@ class Transport extends React.Component {
         <StopButton onClick={this.props.stop}>STOP</StopButton>
         <BPMLabel>BPM</BPMLabel>
         <BPM defaultValue="120" onChange={this.props.changeBPM}/>
-        <PadsToggle onClick={this.props.togglePads}>DRUM PADS</PadsToggle>
         <BeatIndicator>BEAT: {this.props.beat + 1}</BeatIndicator>
+        <PadsToggle onClick={this.props.togglePads}>CONTROLS</PadsToggle>
       </TransportContainer>
     );
   }
