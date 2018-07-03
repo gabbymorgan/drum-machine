@@ -213,6 +213,7 @@ class App extends Component {
       else {
         this.stop();
       }
+      event.preventDefault();
     }
     else if (Object.keys(keys).includes(event.key)) {
       sounds[keys[event.key]](context, gains[keys[event.key]]);
