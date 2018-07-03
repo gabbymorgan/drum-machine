@@ -43,7 +43,7 @@ class App extends Component {
     const { bpm, sequenceLength } = this.state;
     timer = setInterval(() => {
       // this.setState({ currentBeat: this.state.currentBeat + 1 });
-      let nextBeat = (Math.floor(context.currentTime * bpm/60) % sequenceLength) - totalRewind;
+      let nextBeat = (Math.floor(context.currentTime * bpm/60*sequenceLength/4) % sequenceLength) - totalRewind;
       if (nextBeat !== this.state.currentBeat) {
       this.setState({
         isPlaying: true,
