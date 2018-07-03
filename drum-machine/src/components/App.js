@@ -132,31 +132,29 @@ class App extends Component {
   }
 
   play() {
-    context.resume();
-    const { bpm, sequenceLength } = this.state;
-    let timeSinceLastStop = 0;
+    if (!this.state.isPlaying) {    
+      context.resume();
+      const { bpm, sequenceLength } = this.state;
+      let timeSinceLastStop = 0;
 
-    if (this.state.wasStopped) {
+      if (this.state.wasStopped) {
+        this.setState({
+          wasStopped: false
+        });
+        timeSinceLastStop = context.currentTime;
 
-      this.setState({
-
-        wasStopped: false
-
-      });
-
-      timeSinceLastStop = context.currentTime;
-
+      }
+      timer = setInterval(() => {
+        // this.setState({ currentBeat: this.state.currentBeat + 1 });
+        let nextBeat = (Math.floor((context.currentTime - timeSinceLastStop) * bpm/60*sequenceLength/4) % sequenceLength);
+        if (nextBeat !== this.state.currentBeat) {
+          this.setState({
+            isPlaying: true,
+            currentBeat: nextBeat,
+          });
+        }
+      }, 1);
     }
-    timer = setInterval(() => {
-      // this.setState({ currentBeat: this.state.currentBeat + 1 });
-      let nextBeat = (Math.floor((context.currentTime - timeSinceLastStop) * bpm/60*sequenceLength/4) % sequenceLength);
-      if (nextBeat !== this.state.currentBeat) {
-      this.setState({
-        isPlaying: true,
-        currentBeat: nextBeat,
-      });
-    }
-  }, 1);
   }
 
   pause() {
