@@ -198,12 +198,12 @@ class App extends Component {
     }
     const keys = {
       'q': 'kick',
-      'w': 'snare', 
+      'w': 'snare',
       'e': 'hhopen',
       'r': 'hhclosed',
-      'a': 'tom1', 
-      's': 'tom2', 
-      'd': 'aux1', 
+      'a': 'tom1',
+      's': 'tom2',
+      'd': 'aux1',
       'f': 'aux2',
       }
     if (event.keyCode === 32) {
@@ -213,6 +213,7 @@ class App extends Component {
       else {
         this.stop();
       }
+      event.preventDefault();
     }
     else if (Object.keys(keys).includes(event.key)) {
       sounds[keys[event.key]](context, gains[keys[event.key]]);
