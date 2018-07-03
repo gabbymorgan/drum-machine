@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const LedContainer = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const Led = styled.div`
   width: 5%;
   border: 1px solid black;
   border-radius: 5px;
-  background: ${props => (props.active ? "#76ff03" : "#e0e0e0")};
+  background: ${props => (props.active ? '#76ff03' : '#e0e0e0')};
   margin: 0 auto;
 `;
 

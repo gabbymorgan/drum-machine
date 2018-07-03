@@ -15,7 +15,7 @@ masterGain.connect(context.destination);
 masterGain.gain.value = 0.9;    // Master Volume Control
 
 /* SETUP DELAY */
-const MAX_DELAY_TIME = 3;
+const MAX_DELAY_TIME = 2;
 const delay = context.createDelay(MAX_DELAY_TIME);
 const delayInputGain = context.createGain();
 const delayFeedback = context.createGain();
@@ -25,8 +25,8 @@ delayInputGain.connect(delay);
 delayFeedback.connect(delay);
 delay.connect(delayFeedback);
 /* Delay FX Paramters */
-delay.delayTime.value = 0.5;       // Delay Time
-delayInputGain.gain.value = 0.7;   // Delay Volume
+delay.delayTime.value = 1;       // Delay Time
+delayInputGain.gain.value = 0.5;   // Delay Volume
 delayFeedback.gain.value = 0.5;    // Delay Feedback
 
 /* GAIN NODES FOR EACH DRUM PART */
@@ -137,13 +137,14 @@ class App extends Component {
     const name = event.target.name;
     let value = event.target.value / 100;
     if (name === "DelayVolume") {
-      delayInputGain.gain.setValueAtTime(value, context.currentTime)
+      delayInputGain.gain.setValueAtTime(value, context.currentTime);
     } 
     else if (name === "DelayTime") {
-      // value *= MAX_DELAY_TIME;
-      delay.delayTime.setValueAtTime(value, context.currentTime)
+      value *= MAX_DELAY_TIME;
+      // delay.delayTime.setValueAtTime(value, context.currentTime)
+      delay.delayTime.linearRampToValueAtTime(value, context.currentTime + 0.1);
     } else {
-      delayFeedback.gain.setValueAtTime(value, context.currentTime)
+      delayFeedback.gain.setValueAtTime(value, context.currentTime);
     }
   }
 
@@ -172,7 +173,7 @@ class App extends Component {
           currentBeat={this.state.currentBeat}
           sequenceLength={this.state.sequenceLength}
         />
-        <Mixer delayHandler={this.delayHandler} />
+        <Mixer delayHandler={this.delayHandler} delayTime={delay.delayTime.value}/>
       </Container>
     );
   }

@@ -1,8 +1,8 @@
-import React from "react";
-import { Container } from "reactstrap";
-import Sequence from "./Sequence";
-import Timeline from "./Timeline";
-import styled from "styled-components";
+import React from 'react';
+import { Container } from 'reactstrap';
+import Sequence from './Sequence';
+import Timeline from './Timeline';
+import styled from 'styled-components';
 import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from '../../sounds';
 
 const sounds = {

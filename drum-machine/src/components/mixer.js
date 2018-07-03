@@ -16,13 +16,11 @@ const MixerStyled = styled.div`
     height: 5px;
     cursor: pointer;
     animate: 0.2s;
-    box-shadow: 1px 1px 1px #000000;
     border-radius: 5px;
     border: 1px solid #000000;
   }
 
   input[type='range']::-webkit-slider-thumb {
-    box-shadow: 1px 1px 1px #000000;
     border: 1px solid #000000;
     height: 20px;
     width: 10px;
@@ -40,22 +38,22 @@ class Mixer extends Component {
       <MixerStyled>
         Delay Volume:{' '}
         <input
-          type="range"
-          name="DelayVolume"
+          type='range'
+          name='DelayVolume'
           onChange={this.props.delayHandler}
         />{' '}
         <br />
         Delay Time:{' '}
         <input
-          type="range"
-          name="DelayTime"
+          type='range'
+          name='DelayTime'
           onChange={this.props.delayHandler}
         />{' '}
         <br />
         Delay Feedback:{' '}
         <input
-          type="range"
-          name="DelayFeedback"
+          type='range'
+          name='DelayFeedback'
           onChange={this.props.delayHandler}
         />{' '}
         <br />
