@@ -193,18 +193,17 @@ class App extends Component {
   };
 
   keyPressHandler = (event) => {
-    event.preventDefault();
     const sounds = {
       kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
     }
     const keys = {
       'q': 'kick',
-      'w': 'snare', 
+      'w': 'snare',
       'e': 'hhopen',
       'r': 'hhclosed',
-      'a': 'tom1', 
-      's': 'tom2', 
-      'd': 'aux1', 
+      'a': 'tom1',
+      's': 'tom2',
+      'd': 'aux1',
       'f': 'aux2',
       }
     if (event.keyCode === 32) {
