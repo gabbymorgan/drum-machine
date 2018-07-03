@@ -96,12 +96,13 @@ class App extends Component {
     sequenceLength: 16,
     tracks: 8,
     showPads: true,
-    wasStopped: false,
+    wasStopped: true,
     clear: false,
   };
 
   componentDidMount() {
     context.suspend();
+    document.addEventListener("keydown", this.onKeyPress, false);
   }
 
   clearSequences = () => {
@@ -190,6 +191,28 @@ class App extends Component {
       sequenceLength: value
     });
   };
+
+  onKeyPress = (event) => {
+
+    console.log("PRESSED " + event.key);
+
+    if (event.keyCode == 32) {
+
+      if (!this.state.playing && this.state.wasStopped) {
+
+        this.play();
+
+      }
+
+      else {
+
+        this.stop();
+
+      }
+
+    }
+
+  }
 
   mixerHandler = (event) => {
     const name = event.target.name;
