@@ -36,27 +36,34 @@ class Mixer extends Component {
   render() {
     return (
       <MixerStyled>
+
         Delay Volume:{' '}
         <input
           type='range'
           name='DelayVolume'
-          onChange={this.props.delayHandler}
-        />{' '}
-        <br />
+          onChange={this.props.mixerHandler}
+        /><br />
+
         Delay Time:{' '}
         <input
           type='range'
           name='DelayTime'
-          onChange={this.props.delayHandler}
-        />{' '}
-        <br />
+          onChange={this.props.mixerHandler}
+        /><br />
+
         Delay Feedback:{' '}
         <input
           type='range'
           name='DelayFeedback'
-          onChange={this.props.delayHandler}
-        />{' '}
-        <br />
+          onChange={this.props.mixerHandler}
+        /><br />
+
+        Reverb Volume:{' '}
+        <input type='range'
+          name='ReverbVolume'
+          onChange={this.props.mixerHandler}
+        /><br />
+
       </MixerStyled>
     );
   }

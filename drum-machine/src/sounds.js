@@ -23,6 +23,21 @@ const noiseBuffer = context => {
   return buffer;
 };
 
+function generateIR(context, duration, decay) {
+  let sampleRate = context.sampleRate;
+  let length = sampleRate * duration;
+  let impulse = context.createBuffer(2, length, sampleRate);
+  let impulseL = impulse.getChannelData(0);
+  let impulseR = impulse.getChannelData(1);
+
+  if (!decay) decay = 2.0;
+  for (let i = 0; i < length; i++) {
+    impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+    impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+  }
+  return impulse;
+}
+
 // Kick
 function kick(context, destination) {
   const osc = context.createOscillator();
@@ -80,8 +95,11 @@ function snare(context, destination) {
 
   const LENGTH = 0.2;
   gain.gain.linearRampToValueAtTime(0.9, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime(new Float32Array([0.9, 0]), context.currentTime + 0.001, LENGTH);
-
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0.9, 0]),
+    context.currentTime + 0.001,
+    LENGTH
+  );
 }
 
 // Tom 1
@@ -100,7 +118,11 @@ function tom1(context, destination) {
 
   const LENGTH = 0.1;
   gain.gain.linearRampToValueAtTime(0.9, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime(new Float32Array([0.9, 0]), context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0.9, 0]),
+    context.currentTime + 0.001,
+    LENGTH
+  );
   osc.stop(context.currentTime + LENGTH + 0.1);
 }
 
@@ -120,7 +142,11 @@ function tom2(context, destination) {
 
   const LENGTH = 0.1;
   gain.gain.linearRampToValueAtTime(0.9, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime(new Float32Array([0.9, 0]), context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0.9, 0]),
+    context.currentTime + 0.001,
+    LENGTH
+  );
   osc.stop(context.currentTime + LENGTH + 0.1);
 }
 
@@ -156,7 +182,11 @@ function hhopen(context, destination) {
 
   const LENGTH = 0.5;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0.2, 0]),
+    context.currentTime + 0.001,
+    LENGTH
+  );
 }
 
 //HH Closed
@@ -192,7 +222,11 @@ function hhclosed(context, destination) {
 
   const LENGTH = 0.1;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0.2, 0]),
+    context.currentTime + 0.001,
+    LENGTH
+  );
 }
 
 // Aux 1
@@ -218,7 +252,11 @@ function aux1(context, destination) {
 
   const LENGTH = 2;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.2);
-  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.2, LENGTH);
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0.2, 0]),
+    context.currentTime + 0.2,
+    LENGTH
+  );
   osc.stop(context.currentTime + LENGTH + 0.4);
 }
 
@@ -243,8 +281,12 @@ function aux2(context, destination) {
 
   const LENGTH = 2;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.2);
-  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.2, LENGTH);
+  gain.gain.setValueCurveAtTime(
+    new Float32Array([0.2, 0]),
+    context.currentTime + 0.2,
+    LENGTH
+  );
   osc.stop(context.currentTime + LENGTH + 0.4);
 }
 
-export { kick, snare, tom1, tom2, hhopen, hhclosed, aux1, aux2 };
+export { kick, snare, tom1, tom2, hhopen, hhclosed, aux1, aux2, generateIR };

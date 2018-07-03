@@ -5,29 +5,16 @@ import SampleContainer from './Samples/SampleContainer';
 import Transport from './/Transport/Transport';
 import Sequencer from './Sequencer/Sequencer';
 import Mixer from './mixer';
+import { generateIR } from '../sounds';
 import './App.css';
 
 /* MAIN AUDIO CONTEXT */
 const context = new AudioContext();
+
 /* MASTER GAIN NODE */
 const masterGain = context.createGain();
 masterGain.connect(context.destination);
 masterGain.gain.value = 0.9;    // Master Volume Control
-
-/* SETUP DELAY */
-const MAX_DELAY_TIME = 2;
-const delay = context.createDelay(MAX_DELAY_TIME);
-const delayInputGain = context.createGain();
-const delayFeedback = context.createGain();
-/* Delay internal signal path */
-delay.connect(masterGain);
-delayInputGain.connect(delay);
-delayFeedback.connect(delay);
-delay.connect(delayFeedback);
-/* Delay FX Paramters */
-delay.delayTime.value = 1;       // Delay Time
-delayInputGain.gain.value = 0.5;   // Delay Volume
-delayFeedback.gain.value = 0.5;    // Delay Feedback
 
 /* GAIN NODES FOR EACH DRUM PART */
 const kickGain = context.createGain()
@@ -50,8 +37,41 @@ const gains = {
   aux2: aux2Gain
 };
 
-// Connect all sounds o masterGain Node
 Object.values(gains).forEach(part => part.connect(masterGain));
+
+/* SETUP DELAY */
+const MAX_DELAY_TIME = 2;
+const delay = context.createDelay(MAX_DELAY_TIME);
+const delayInputGain = context.createGain();
+const delayFeedback = context.createGain();
+/* Delay internal signal path */
+delay.connect(masterGain);
+delayInputGain.connect(delay);
+delayFeedback.connect(delay);
+delay.connect(delayFeedback);
+/* Delay FX Paramters */
+delay.delayTime.value = 1;         // Delay Time
+delayInputGain.gain.value = 0.5;   // Delay Volume
+delayFeedback.gain.value = 0.5;    // Delay Feedback
+
+/* SETUP REVERB */
+const irBuffer = generateIR(context, 3, 2.5);
+const reverb = context.createConvolver();
+const reverbInputGain = context.createGain();
+reverb.buffer = irBuffer;
+reverbInputGain.connect(reverb);
+reverb.connect(masterGain);
+reverbInputGain.gain.value = 0.5;  // Reverb Volume
+
+/* CONNECT DRUM SOUNDS TO REVERB */
+// kickGain.connect(delayInputGain);
+snareGain.connect(reverbInputGain);
+hhOpenGain.connect(reverbInputGain);
+hhClosedGain.connect(reverbInputGain);
+tom1Gain.connect(reverbInputGain);
+tom2Gain.connect(reverbInputGain);
+aux1Gain.connect(reverbInputGain);
+aux2Gain.connect(reverbInputGain);
 
 /* CONNECT DRUM SOUNDS TO DELAY */
 // kickGain.connect(delayInputGain);
@@ -133,18 +153,26 @@ class App extends Component {
     });
   };
 
-  delayHandler = (event) => {
+  mixerHandler = (event) => {
     const name = event.target.name;
     let value = event.target.value / 100;
+
     if (name === "DelayVolume") {
       delayInputGain.gain.setValueAtTime(value, context.currentTime);
-    } 
+    }
     else if (name === "DelayTime") {
       value *= MAX_DELAY_TIME;
       // delay.delayTime.setValueAtTime(value, context.currentTime)
       delay.delayTime.linearRampToValueAtTime(value, context.currentTime + 0.1);
-    } else {
+    }
+    else if (name === "DelayVolume"){
       delayFeedback.gain.setValueAtTime(value, context.currentTime);
+    }
+    else if (name === 'ReverbVolume') {
+      reverbInputGain.gain.setValueAtTime(value, context.currentTime);
+    }
+    else {
+      console.log('Error in mixerHandler')
     }
   }
 
@@ -173,7 +201,7 @@ class App extends Component {
           currentBeat={this.state.currentBeat}
           sequenceLength={this.state.sequenceLength}
         />
-        <Mixer delayHandler={this.delayHandler} delayTime={delay.delayTime.value}/>
+        <Mixer mixerHandler={this.mixerHandler} />
       </Container>
     );
   }
