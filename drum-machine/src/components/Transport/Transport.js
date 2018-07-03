@@ -38,18 +38,18 @@ const PauseButton = styled.div`
   }
 `;
 
-const StopButton = styled.div`
-  height: 30px;
-  background: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 4px 15px;
-  margin-left: 10px;
-  font-weight: bold;
-  &:hover {
-    cursor: pointer;
-  }
-`;
+// const StopButton = styled.div`
+//   height: 30px;
+//   background: white;
+//   border: 1px solid black;
+//   border-radius: 5px;
+//   padding: 4px 15px;
+//   margin-left: 10px;
+//   font-weight: bold;
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `;
 
 const BPMLabel = styled.div`
   height: 30px;

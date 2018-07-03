@@ -15,9 +15,6 @@ const Led = styled.div`
 `;
 
 class Timeline extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <LedContainer>

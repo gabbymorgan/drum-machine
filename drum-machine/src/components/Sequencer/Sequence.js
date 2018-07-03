@@ -21,7 +21,7 @@ class Timeline extends React.Component {
 
   componentDidUpdate() {
     if (this.state.noteOn[this.props.currentBeat]) {
-      this.props.playSound(this.props.context);
+      this.props.playSound(this.props.context, this.props.gain);
     }
   }
 
@@ -35,7 +35,6 @@ class Timeline extends React.Component {
   handleClick = index => {
     let { noteOn } = this.state;
     noteOn[index] = !noteOn[index];
-    console.log(noteOn);
     this.setState({
       noteOn,
     });

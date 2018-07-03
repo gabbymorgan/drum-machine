@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container } from "reactstrap";
 import Sequence from "./Sequence";
 import Timeline from "./Timeline";
 import styled from "styled-components";
@@ -34,9 +34,11 @@ class Sequencer extends React.Component {
         {Object.keys(sounds).map((name, index) => {
           return (
             <Sequence
+              key={index}
               name={name}
               playSound={sounds[name]}
               context={this.props.context}
+              gain={this.props.gains[name]}
               currentBeat={this.props.currentBeat}
               sequenceLength={this.props.sequenceLength}
             />
