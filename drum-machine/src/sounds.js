@@ -44,7 +44,7 @@ function kick(context) {
   const LENGTH = 0.1;
   gain.gain.linearRampToValueAtTime(0.9, context.currentTime + 0.0001);
   gain.gain.setValueCurveAtTime(
-    [0.9, 0.9, 0.8, 0.5, 0],
+    new Float32Array([0.9, 0.9, 0.8, 0.5, 0]),
     context.currentTime + 0.0001,
     LENGTH
   );
@@ -80,7 +80,7 @@ function snare(context) {
 
   const LENGTH = 0.2;
   gain.gain.linearRampToValueAtTime(0.9, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime([0.9, 0], context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(new Float32Array([0.9, 0]), context.currentTime + 0.001, LENGTH);
 
 }
 
@@ -100,7 +100,7 @@ function tom1(context) {
 
   const LENGTH = 0.1;
   gain.gain.linearRampToValueAtTime(0.9, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime([0.9, 0], context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(new Float32Array([0.9, 0]), context.currentTime + 0.001, LENGTH);
   osc.stop(context.currentTime + LENGTH + 0.1);
 }
 
@@ -120,7 +120,7 @@ function tom2(context) {
 
   const LENGTH = 0.1;
   gain.gain.linearRampToValueAtTime(0.9, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime([0.9, 0], context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(new Float32Array([0.9, 0]), context.currentTime + 0.001, LENGTH);
   osc.stop(context.currentTime + LENGTH + 0.1);
 }
 
@@ -156,7 +156,7 @@ function hhopen(context) {
 
   const LENGTH = 0.5;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime([0.2, 0], context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.001, LENGTH);
 }
 
 //HH Closed
@@ -192,7 +192,7 @@ function hhclosed(context) {
 
   const LENGTH = 0.1;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.001);
-  gain.gain.setValueCurveAtTime([0.2, 0], context.currentTime + 0.001, LENGTH);
+  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.001, LENGTH);
 }
 
 // Aux 1
@@ -217,7 +217,7 @@ function aux1(context) {
 
   const LENGTH = 2;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.2);
-  gain.gain.setValueCurveAtTime([0.2, 0], context.currentTime + 0.2, LENGTH);
+  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.2, LENGTH);
   osc.stop(context.currentTime + LENGTH + 0.4);
 }
 
@@ -242,7 +242,7 @@ function aux2(context) {
 
   const LENGTH = 2;
   gain.gain.linearRampToValueAtTime(0.2, context.currentTime + 0.2);
-  gain.gain.setValueCurveAtTime([0.2, 0], context.currentTime + 0.2, LENGTH);
+  gain.gain.setValueCurveAtTime(new Float32Array([0.2, 0]), context.currentTime + 0.2, LENGTH);
   osc.stop(context.currentTime + LENGTH + 0.4);
 }
 
