@@ -6,7 +6,6 @@ import Transport from ".//Transport/Transport";
 import Sequencer from "./Sequencer/Sequencer";
 import "./App.css";
 
-
 const context = new AudioContext();
 let timer;
 let totalRewind = 0;
@@ -65,6 +64,12 @@ class App extends Component {
     });
   };
 
+  changeSequenceLength = value => {
+    this.setState({
+      sequenceLength: value
+    })
+  }
+
   render() {
     return (
       <Container>
@@ -77,7 +82,9 @@ class App extends Component {
         beat={this.state.currentBeat}
         togglePads={this.togglePads}
         />
-        <SampleContainer show={this.state.showPads} />
+        <SampleContainer 
+          context={context}
+          show={this.state.showPads} />
         <Sequencer
           context={context}
           tracks={this.state.tracks}
