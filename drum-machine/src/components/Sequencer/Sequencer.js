@@ -2,11 +2,17 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import Sequence from "./Sequence";
 import Timeline from "./Timeline";
-import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from '../../sounds'
+import styled from "styled-components";
+import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from '../../sounds';
 
 const sounds = {
   kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
 }
+
+const LedSpacer = styled.div`
+  width: 100%;
+  height: 10px;
+`;
 
 class Sequencer extends React.Component {
   constructor(props) {
@@ -19,17 +25,23 @@ class Sequencer extends React.Component {
   render() {
     return (
       <Container>
-        <Timeline currentBeat={this.props.currentBeat} 
-        sequenceLength={this.props.sequenceLength}
-        />
-        {Object.keys(sounds).map((name, index) => {
-          return <Sequence
-          name={name}
-          sound={sounds[name]}
-          context={this.props.context}
+        <LedSpacer />
+        <Timeline
           currentBeat={this.props.currentBeat}
           sequenceLength={this.props.sequenceLength}
-          />
+        />
+        <LedSpacer />
+        {Object.keys(sounds).map((name, index) => {
+          return (
+            <Sequence
+              name={name}
+              playSound={sounds[name]}
+              context={this.props.context}
+              currentBeat={this.props.currentBeat}
+              sequenceLength={this.props.sequenceLength}
+              //needs to be passed sound function/file
+            />
+          );
         })}
       </Container>
     );

@@ -8,24 +8,35 @@ const RowSpacer = styled.div`
 `;
 
 class SampleContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    // console.log("SAMPLE CONTAINER PROPS", this.props);
+  }
+
   render() {
-    return (
-      <Container>
-        <Row>
-          <Sample />
-          <Sample />
-          <Sample />
-          <Sample />
-        </Row>
-        <RowSpacer />
-        <Row>
-          <Sample />
-          <Sample />
-          <Sample />
-          <Sample />
-        </Row>
-      </Container>
-    );
+    if (this.props.show) {
+      return (
+        <Container>
+          <RowSpacer />
+          <Row>
+            <Sample />
+            <Sample />
+            <Sample />
+            <Sample />
+          </Row>
+          <RowSpacer />
+          <Row>
+            <Sample />
+            <Sample />
+            <Sample />
+            <Sample />
+          </Row>
+          <RowSpacer />
+        </Container>
+      );
+    } else {
+      return null;
+    }
   }
 }
 

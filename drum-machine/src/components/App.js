@@ -13,43 +13,42 @@ let totalRewind = 0;
 
 class App extends Component {
   state = {
-    isPlaying: true,
+    isPlaying: false,
     currentBeat: 0,
     bpm: 100,
     sequenceLength: 16,
     tracks: 8,
-    isStopped: false,
+    showPads: true,
   };
 
   componentDidMount() {
     context.suspend();
   }
 
-  start() {
+  togglePads = () => {
+    this.setState({
+      showPads: !this.state.showPads,
+    });
+  }
+
+  pressPlayPause() {
+    if (!this.state.isPlaying) {
+      this.play();
+    } else {
+      this.pause();
+    }
+  }
+
+  play() {
     context.resume();
     const { bpm, sequenceLength } = this.state;
-    let { currentBeat } = this.state;
-    if (this.state.isStopped) {
-      totalRewind += currentBeat;
-    }
-
     timer = setInterval(() => {
       // this.setState({ currentBeat: this.state.currentBeat + 1 });
       this.setState({
         isPlaying: true,
         currentBeat: (Math.floor(context.currentTime * bpm/60) % sequenceLength) - totalRewind,
-        isStopped: false
       });
-    }, 50);
-  }
-
-  stop() {
-    context.suspend();
-    this.setState({
-      isPlaying: false,
-      isStopped: true,
-    });
-    clearInterval(timer);
+    }, context.currentTime + 50);
   }
 
   pause() {
@@ -69,20 +68,23 @@ class App extends Component {
   render() {
     return (
       <Container>
-        <SampleContainer />
+        <Transport
+        context={context}
+        changeBPM={this.changeBPM}
+        play={() => this.play()}
+        pause={() => this.pause()}
+        time={context.currentTime}
+        beat={this.state.currentBeat}
+        togglePads={this.togglePads}
+        />
+        <SampleContainer show={this.state.showPads} />
         <Sequencer
           context={context}
           tracks={this.state.tracks}
           currentBeat={this.state.currentBeat}
           sequenceLength={this.state.sequenceLength}
         />
-        <h1>{context.currentTime}</h1>
-        <h1>{this.state.currentBeat}</h1>
-        <Transport context={context} changeBPM={this.changeBPM} />
-        <Button onClick={() => this.start()}>Start</Button>
-        <Button onClick={() => this.pause()}>Pause</Button>
-        <Button onClick={() => this.stop()}>Stop</Button>
-      </Container>
+    </Container>
     );
   }
 }
