@@ -18,6 +18,7 @@ class App extends Component {
     sequenceLength: 16,
     tracks: 8,
     showPads: true,
+    wasStopped: false
   };
 
   componentDidMount() {
@@ -41,9 +42,22 @@ class App extends Component {
   play() {
     context.resume();
     const { bpm, sequenceLength } = this.state;
+    let timeSinceLastStop = 0;
+
+    if (this.state.wasStopped) {
+
+      this.setState({
+
+        wasStopped: false
+
+      });
+
+      timeSinceLastStop = context.currentTime;
+
+    }
     timer = setInterval(() => {
       // this.setState({ currentBeat: this.state.currentBeat + 1 });
-      let nextBeat = (Math.floor(context.currentTime * bpm/60*sequenceLength/4) % sequenceLength) - totalRewind;
+      let nextBeat = (Math.floor((context.currentTime - timeSinceLastStop) * bpm/60*sequenceLength/4) % sequenceLength);
       if (nextBeat !== this.state.currentBeat) {
       this.setState({
         isPlaying: true,
@@ -58,7 +72,20 @@ class App extends Component {
       isPlaying: false,
     });
     clearInterval(timer);
+    totalRewind = new Date();
     context.suspend();
+  }
+
+  stop() {
+
+    clearInterval(timer);
+    this.setState({
+      isPlaying: false,
+      wasStopped: true
+    });
+    context.suspend();
+    totalRewind = context.currentTime;
+
   }
 
   changeBPM = value => {
@@ -82,6 +109,7 @@ class App extends Component {
         changeBPM={this.changeBPM}
         play={() => this.play()}
         pause={() => this.pause()}
+        stop={() => this.stop()}
         time={context.currentTime}
         beat={this.state.currentBeat}
         togglePads={this.togglePads}
