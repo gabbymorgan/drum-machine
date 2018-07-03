@@ -19,7 +19,7 @@ class Timeline extends React.Component {
     return (
       <LedContainer>
         {[...Array(this.props.sequenceLength).keys()].map((value, index) => {
-          return <Led id={index} active={this.props.currentBeat === index} />;
+          return <Led key={index} active={this.props.currentBeat === index} />;
         })}
       </LedContainer>
     );

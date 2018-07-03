@@ -44,7 +44,7 @@ class Timeline extends React.Component {
     return (
       <LedContainer>
         {this.state.noteOn.map((note, index) => {
-          return <Led id={index} on={this.state.noteOn[index]} onClick={() => this.handleClick(index)} />
+          return <Led key={index} on={this.state.noteOn[index]} onClick={() => this.handleClick(index)} />
         })}
       </LedContainer>
     );

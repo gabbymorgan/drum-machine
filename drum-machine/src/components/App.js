@@ -4,6 +4,7 @@ import { Container } from 'reactstrap';
 import SampleContainer from './Samples/SampleContainer';
 import Transport from './/Transport/Transport';
 import Sequencer from './Sequencer/Sequencer';
+import Mixer from './mixer';
 import './App.css';
 
 /* MAIN AUDIO CONTEXT */
@@ -14,7 +15,8 @@ masterGain.connect(context.destination);
 masterGain.gain.value = 0.9;    // Master Volume Control
 
 /* SETUP DELAY */
-const delay = context.createDelay(3);
+const MAX_DELAY_TIME = 3;
+const delay = context.createDelay(MAX_DELAY_TIME);
 const delayInputGain = context.createGain();
 const delayFeedback = context.createGain();
 /* Delay internal signal path */
@@ -131,6 +133,20 @@ class App extends Component {
     });
   };
 
+  delayHandler = (event) => {
+    const name = event.target.name;
+    let value = event.target.value / 100;
+    if (name === "DelayVolume") {
+      delayInputGain.gain.setValueAtTime(value, context.currentTime)
+    } 
+    else if (name === "DelayTime") {
+      // value *= MAX_DELAY_TIME;
+      delay.delayTime.setValueAtTime(value, context.currentTime)
+    } else {
+      delayFeedback.gain.setValueAtTime(value, context.currentTime)
+    }
+  }
+
   render() {
     return (
       <Container>
@@ -156,6 +172,7 @@ class App extends Component {
           currentBeat={this.state.currentBeat}
           sequenceLength={this.state.sequenceLength}
         />
+        <Mixer delayHandler={this.delayHandler} />
       </Container>
     );
   }
