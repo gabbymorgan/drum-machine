@@ -39,7 +39,6 @@ class Sequencer extends React.Component {
               context={this.props.context}
               currentBeat={this.props.currentBeat}
               sequenceLength={this.props.sequenceLength}
-              //needs to be passed sound function/file
             />
           );
         })}
