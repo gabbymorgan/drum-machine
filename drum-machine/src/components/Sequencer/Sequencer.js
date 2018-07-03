@@ -40,6 +40,8 @@ class Sequencer extends React.Component {
                 playSound={sounds[name]}
                 context={this.props.context}
                 gain={this.props.gains[name]}
+                clear={this.props.clear}
+                unsetClear={this.props.unsetClear}
                 currentBeat={this.props.currentBeat}
                 sequenceLength={this.props.sequenceLength}
               />

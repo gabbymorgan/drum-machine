@@ -96,11 +96,24 @@ class App extends Component {
     sequenceLength: 16,
     tracks: 8,
     showPads: true,
-    wasStopped: false
+    wasStopped: false,
+    clear: false,
   };
 
   componentDidMount() {
     context.suspend();
+  }
+
+  clearSequences = () => {
+    this.setState({
+      clear: true,
+    });
+  }
+
+  unsetClear = () => {
+    this.setState({
+      clear: false,
+    })
   }
 
   togglePads = () => {
@@ -210,6 +223,7 @@ class App extends Component {
           play={() => this.play()}
           pause={() => this.pause()}
           stop = {() => this.stop()}
+          clearSequences={this.clearSequences}
           time={context.currentTime}
           beat={this.state.currentBeat}
           togglePads={this.togglePads}
@@ -224,8 +238,10 @@ class App extends Component {
           {this.state.showPads ?  <Mixer mixerHandler={this.mixerHandler}/> : null}
         </div>
         <Sequencer
+          clear={this.state.clear}
           context={context}
           gains={gains}
+          unsetClear={this.unsetClear}
           tracks={this.state.tracks}
           currentBeat={this.state.currentBeat}
           sequenceLength={this.state.sequenceLength}

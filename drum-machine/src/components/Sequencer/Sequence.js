@@ -23,6 +23,13 @@ class Timeline extends React.Component {
     if (this.state.noteOn[this.props.currentBeat]) {
       this.props.playSound(this.props.context, this.props.gain);
     }
+    if (this.props.clear) {
+      const noteOn = [...Array(this.props.sequenceLength).keys()].fill(false);
+      this.setState({
+        noteOn,
+      });
+      this.props.unsetClear();
+    }
   }
 
   componentDidMount() {
