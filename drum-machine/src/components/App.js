@@ -5,7 +5,7 @@ import SampleContainer from './Samples/SampleContainer';
 import Transport from './/Transport/Transport';
 import Sequencer from './Sequencer/Sequencer';
 import Mixer from './mixer';
-import { generateIR } from '../sounds';
+import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2, generateIR } from '../sounds';
 import './App.css';
 
 /* MAIN AUDIO CONTEXT */
@@ -102,7 +102,7 @@ class App extends Component {
 
   componentDidMount() {
     context.suspend();
-    document.addEventListener("keydown", this.onKeyPress, false);
+    document.addEventListener("keydown", this.keyPressHandler, false);
   }
 
   clearSequences = () => {
@@ -192,26 +192,33 @@ class App extends Component {
     });
   };
 
-  onKeyPress = (event) => {
-
-    console.log("PRESSED " + event.key);
-
-    if (event.keyCode == 32) {
-
-      if (!this.state.playing && this.state.wasStopped) {
-
-        this.play();
-
-      }
-
-      else {
-
-        this.stop();
-
-      }
-
+  keyPressHandler = (event) => {
+    event.preventDefault();
+    const sounds = {
+      kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2
     }
-
+    const keys = {
+      'q': 'kick',
+      'w': 'snare', 
+      'e': 'hhopen',
+      'r': 'hhclosed',
+      'a': 'tom1', 
+      's': 'tom2', 
+      'd': 'aux1', 
+      'f': 'aux2',
+      }
+    if (event.keyCode === 32) {
+      if (!this.state.playing && this.state.wasStopped) {
+        this.play();
+      }
+      else {
+        this.stop();
+      }
+    }
+    else if (Object.keys(keys).includes(event.key)) {
+      sounds[keys[event.key]](context, gains[keys[event.key]]);
+      console.log(event.key)
+    }
   }
 
   mixerHandler = (event) => {
