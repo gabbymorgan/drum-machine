@@ -26,7 +26,8 @@ class Timeline extends React.Component {
   }
 
   componentDidMount() {
-    const noteOn = [...Array(this.props.sequenceLength).keys()].fill(false);
+    // const noteOn = [...Array(this.props.sequenceLength).keys()].fill(false);
+    const noteOn = [...Array(this.props.sequenceLength).keys()].map(el => Math.random() > 0.3 ? false : true);
     this.setState({
       noteOn,
     })
