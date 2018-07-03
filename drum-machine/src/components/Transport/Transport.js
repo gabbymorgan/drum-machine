@@ -38,18 +38,18 @@ const PauseButton = styled.div`
   }
 `;
 
-// const StopButton = styled.div`
-//   height: 30px;
-//   background: white;
-//   border: 1px solid black;
-//   border-radius: 5px;
-//   padding: 4px 15px;
-//   margin-left: 10px;
-//   font-weight: bold;
-//   &:hover {
-//     cursor: pointer;
-//   }
-// `;
+const StopButton = styled.div`
+  height: 30px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 4px 15px;
+  margin-left: 10px;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const BPMLabel = styled.div`
   height: 30px;
@@ -96,9 +96,9 @@ class Transport extends React.Component {
       <TransportContainer>
         <PlayButton onClick={this.props.play}>PLAY</PlayButton>
         <PauseButton onClick={this.props.pause}>PAUSE</PauseButton>
-        {/* <StopButton onClick={() => this.props.stop()}>STOP</StopButton> */}
+        <StopButton onClick={this.props.stop}>STOP</StopButton>
         <BPMLabel>BPM</BPMLabel>
-        <BPM />
+        <BPM defaultValue="120" onChange={this.props.changeBPM}/>
         <PadsToggle onClick={this.props.togglePads}>DRUM PADS</PadsToggle>
         <BeatIndicator>BEAT: {this.props.beat + 1}</BeatIndicator>
       </TransportContainer>
