@@ -1,7 +1,5 @@
-import React from "react";
-import styled from "styled-components";
-import { kick, snare, hhopen, hhclosed, tom1, tom2, aux1, aux2 } from '../../sounds';
-
+import React from 'react';
+import styled from 'styled-components';
 
 const Samp = styled.div`
   width: 20%;
@@ -13,12 +11,8 @@ const Samp = styled.div`
 `;
 
 class Sample extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   clickHandler() {
-    this.props.playSound(this.props.context);
+    this.props.playSound(this.props.context, this.props.gain);
   }
 
   render() {

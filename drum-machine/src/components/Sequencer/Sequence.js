@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const LedContainer = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const Led = styled.div`
   margin: 0 auto;
   border: 1px solid black;
   border-radius: 5px;
-  background: ${props => (props.on ? "#4fc3f7" : "#e0e0e0")};
+  background: ${props => (props.on ? '#4fc3f7' : '#e0e0e0')};
 `;
 
 class Timeline extends React.Component {
@@ -21,7 +21,7 @@ class Timeline extends React.Component {
 
   componentDidUpdate() {
     if (this.state.noteOn[this.props.currentBeat]) {
-      this.props.playSound(this.props.context);
+      this.props.playSound(this.props.context, this.props.gain);
     }
   }
 
@@ -35,7 +35,6 @@ class Timeline extends React.Component {
   handleClick = index => {
     let { noteOn } = this.state;
     noteOn[index] = !noteOn[index];
-    console.log(noteOn);
     this.setState({
       noteOn,
     });
@@ -45,7 +44,7 @@ class Timeline extends React.Component {
     return (
       <LedContainer>
         {this.state.noteOn.map((note, index) => {
-          return <Led id={index} on={this.state.noteOn[index]} onClick={() => this.handleClick(index)} />
+          return <Led key={index} on={this.state.noteOn[index]} onClick={() => this.handleClick(index)} />
         })}
       </LedContainer>
     );
