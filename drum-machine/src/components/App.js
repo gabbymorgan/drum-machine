@@ -92,12 +92,12 @@ class App extends Component {
   state = {
     isPlaying: false,
     currentBeat: 0,
-    bpm: 100,
+    bpm: 120,
     sequenceLength: 16,
     tracks: 8,
     showPads: true,
     wasStopped: true,
-    clear: false,
+    clear: false
   };
 
   componentDidMount() {
@@ -164,6 +164,7 @@ class App extends Component {
       isPlaying: false
     });
     clearInterval(timer);
+    totalRewind = new Date();
     context.suspend();
   }
 

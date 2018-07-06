@@ -98,10 +98,10 @@ class Transport extends React.Component {
       <TransportContainer>
         <PlayButton onClick={this.props.play}>PLAY</PlayButton>
         <PauseButton onClick={this.props.pause}>PAUSE</PauseButton>
-        <StopButton onClick={this.props.stop}>STOP</StopButton>
+        <StopButton onClick={this.props.stop}>STOP</StopButton> 
         <BPMLabel>BPM</BPMLabel>
-        <BPM defaultValue="40" onChange={this.props.changeBPM}/>
-        <PlayButton onClick={() => this.props.clearSequences()}>CLEAR</PlayButton>
+        <BPM defaultValue="120" onChange={this.props.changeBPM}/>
+        <PadsToggle onClick={this.props.togglePads}>DRUM PADS</PadsToggle>
         <BeatIndicator>BEAT: {this.props.beat + 1}</BeatIndicator>
         <PadsToggle onClick={this.props.togglePads}>CONTROLS</PadsToggle>
       </TransportContainer>
